@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<grammar version="1.0" xml:lang="fr-FR" mode="voice" tag-format="semantics-ms/1.0" 
+root="mouskie" xmlns="http://www.w3.org/2001/06/grammar">
+      <rule id="mouskie" scope="public">
+            <one-of>
+              <item>a</item>
+              <item>e</item>
+              <item>i</item>
+              <item>o</item>
+              <item>u</item>
+              <item>ou</item>
+              <item>un</item>
+              <item>an</item>
+              <item>oi</item>
+              <item>oeil</item>
+              <item>b</item>
+              <item>bonjour</item>
+              <item>comment</item>
+              <item>ca</item>
+              <item>va</item>
+              <item>thibault</item>
+              <item>TOBI</item>
+              <item>to</item>
+              <item>bi</item>
+            </one-of>
+            <tag>$._value = $recognized.text;</tag>
+      </rule>
+</grammar>
