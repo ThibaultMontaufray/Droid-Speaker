@@ -12,7 +12,7 @@ namespace Droid_Speaker
     public class AutomaticSpeechRecognition
     {
         #region Attribute
-        private const string FILEPATH = @"D:\DEV\_Assistant\Assistant\Droid_speaker\Grammaire.grxml";
+        private const string FILEPATH = @"..\..\Grammaire.grxml";
         private const string GRAMARTEMPLATE = @"<?xml version='1.0' encoding='UTF-8'?>
             <grammar version = '1.0' xml:lang='fr-FR' mode='voice' tag-format='semantics-ms/1.0' root='mouskie' xmlns='http://www.w3.org/2001/06/grammar'>
                   <rule id = 'mouskie' scope='public'>
@@ -28,6 +28,7 @@ namespace Droid_Speaker
         private Label _commandText;
         private Label _devine;
         private Label _affiche;
+        private Label _confidence;
         #endregion
 
         #region Properties
@@ -39,7 +40,7 @@ namespace Droid_Speaker
         #endregion
 
         #region Constructor
-        public AutomaticSpeechRecognition(ref Label recoText, ref Label commandText, ref Label devine, ref Label affiche)
+        public AutomaticSpeechRecognition(ref Label recoText, ref Label commandText, ref Label devine, ref Label affiche, ref Label confidence)
         {
             GenerateGramar();
             //Les 4 labels dont le texte devra être changé
@@ -48,6 +49,7 @@ namespace Droid_Speaker
             this._commandText = commandText;
             this._devine = devine;
             this._affiche = affiche;
+            this._confidence = confidence;
             //Démarrage du moteur de reconnaissance vocale
             StartEngine();
         }
@@ -56,17 +58,18 @@ namespace Droid_Speaker
         #region Methods private
         private void GenerateGramar()
         {
-            StringBuilder lines = new StringBuilder();
-            List<string[]> syllabes = Droid_database.MySqlAdapter.ExecuteReader("select valeur from t_mot;");
-            foreach (string[] syllabe in syllabes)
-            {
-                lines.AppendLine(string.Format("              <item>{0}</item>", syllabe[0]));
-            }
-            if (File.Exists(FILEPATH)) File.Delete(FILEPATH);
-            using (StreamWriter sw = new StreamWriter(FILEPATH))
-            {
-                sw.Write(string.Format(GRAMARTEMPLATE, lines.ToString()));
-            }
+            // TOD add when the complete solution will be ready
+            //StringBuilder lines = new StringBuilder();
+            //List<string[]> syllabes = Droid_Database.MySqlAdapter.ExecuteReader("select valeur from t_mot;");
+            //foreach (string[] syllabe in syllabes)
+            //{
+            //    lines.AppendLine(string.Format("              <item>{0}</item>", syllabe[0]));
+            //}
+            //if (File.Exists(FILEPATH)) File.Delete(FILEPATH);
+            //using (StreamWriter sw = new StreamWriter(FILEPATH))
+            //{
+            //    sw.Write(string.Format(GRAMARTEMPLATE, lines.ToString()));
+            //}
         }
         private void StartEngine()
         {
@@ -95,6 +98,7 @@ namespace Droid_Speaker
             _devine.Text = "";
             _affiche.Text = "";
             _commandText.Text = "";
+            _confidence.Text = e.Result.Confidence.ToString() + " %";
         }
         private void ASREngine_RecoSuccess(object sender, SpeechRecognitionRejectedEventArgs e)
         {
@@ -102,21 +106,28 @@ namespace Droid_Speaker
             _devine.Text = "";
             _affiche.Text = "";
             _commandText.Text = "";
+            _confidence.Text = e.Result.Confidence.ToString() + " %";
         }
         private void ASREngine_RecoFailled(object sender, SpeechRecognizedEventArgs e)
         {
             _recoText.Text = e.Result.Text;
             _devine.Text = "";
-            _affiche.Text = "";
-            //Récupération de la commande de base utilisée (QUIT ou LEARN)
+            _devine.Text = string.Empty;
+
+            foreach (var item in e.Result.Alternates)
+            {
+                _devine.Text += " " + item.Text;
+            }
+            //_affiche.Text = "";
+            ////Récupération de la commande de base utilisée(QUIT ou LEARN)
             //string baseCommand = e.Result.Semantics["mouskie"].Value.ToString();
-            //commandText.Text = baseCommand;
+            //_commandText.Text = baseCommand;
             //if (baseCommand.Equals("QUIT"))
             //    Environment.Exit(0);
             //else if (baseCommand.Equals("LEARN"))
             //{
             //    string dataType = e.Result.Semantics["data_type"].Value.ToString();
-            //    commandText.Text += " " + dataType;
+            //    _commandText.Text += " " + dataType;
             //    string node = "";
             //    //Choix du noeud en fonction de la commande trouvée
             //    if (dataType.Equals("NUMBER"))
@@ -129,8 +140,8 @@ namespace Droid_Speaker
             //        {
             //            string found = e.Result.Alternates.ToArray()[i].Semantics["data_type"][node].Value.ToString();
             //            if (i != 0)
-            //                affiche.Text += " ou ";
-            //            affiche.Text += found;
+            //                _affiche.Text += " ou ";
+            //            _affiche.Text += found;
             //        }
             //    }
             //    catch { }

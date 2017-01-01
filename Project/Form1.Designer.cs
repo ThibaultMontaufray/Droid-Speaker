@@ -39,6 +39,8 @@
             this.commandLabel = new System.Windows.Forms.Label();
             this.commandText = new System.Windows.Forms.Label();
             this.helpLabel = new System.Windows.Forms.Label();
+            this.confidenceText = new System.Windows.Forms.Label();
+            this.confidenceTextLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // recoTextLabel
@@ -53,7 +55,7 @@
             // afficheLabel
             // 
             this.afficheLabel.AutoSize = true;
-            this.afficheLabel.Location = new System.Drawing.Point(12, 78);
+            this.afficheLabel.Location = new System.Drawing.Point(12, 100);
             this.afficheLabel.Name = "afficheLabel";
             this.afficheLabel.Size = new System.Drawing.Size(123, 13);
             this.afficheLabel.TabIndex = 5;
@@ -62,7 +64,7 @@
             // devineLabel
             // 
             this.devineLabel.AutoSize = true;
-            this.devineLabel.Location = new System.Drawing.Point(12, 101);
+            this.devineLabel.Location = new System.Drawing.Point(12, 123);
             this.devineLabel.Name = "devineLabel";
             this.devineLabel.Size = new System.Drawing.Size(98, 13);
             this.devineLabel.TabIndex = 6;
@@ -80,7 +82,7 @@
             // affiche
             // 
             this.affiche.AutoSize = true;
-            this.affiche.Location = new System.Drawing.Point(141, 78);
+            this.affiche.Location = new System.Drawing.Point(141, 100);
             this.affiche.Name = "affiche";
             this.affiche.Size = new System.Drawing.Size(27, 13);
             this.affiche.TabIndex = 8;
@@ -89,7 +91,7 @@
             // devine
             // 
             this.devine.AutoSize = true;
-            this.devine.Location = new System.Drawing.Point(116, 101);
+            this.devine.Location = new System.Drawing.Point(116, 123);
             this.devine.Name = "devine";
             this.devine.Size = new System.Drawing.Size(27, 13);
             this.devine.TabIndex = 9;
@@ -98,7 +100,7 @@
             // exemplesLabel
             // 
             this.exemplesLabel.AutoSize = true;
-            this.exemplesLabel.Location = new System.Drawing.Point(12, 124);
+            this.exemplesLabel.Location = new System.Drawing.Point(12, 146);
             this.exemplesLabel.Name = "exemplesLabel";
             this.exemplesLabel.Size = new System.Drawing.Size(146, 13);
             this.exemplesLabel.TabIndex = 10;
@@ -107,17 +109,18 @@
             // exemples
             // 
             this.exemples.Enabled = false;
-            this.exemples.Location = new System.Drawing.Point(12, 144);
+            this.exemples.Location = new System.Drawing.Point(15, 175);
             this.exemples.Multiline = true;
             this.exemples.Name = "exemples";
             this.exemples.Size = new System.Drawing.Size(384, 81);
             this.exemples.TabIndex = 11;
-            this.exemples.Text = "Fin du travail\r\nC'est la lettre a\r\nC'est le chiffre 5\r\nAffiche la lettre p\r\nAffiche le chiffre 0";
+            this.exemples.Text = "Fin du travail\r\nC\'est la lettre a\r\nC\'est le chiffre 5\r\nAffiche la lettre p\r\nAffic" +
+    "he le chiffre 0";
             // 
             // commandLabel
             // 
             this.commandLabel.AutoSize = true;
-            this.commandLabel.Location = new System.Drawing.Point(12, 55);
+            this.commandLabel.Location = new System.Drawing.Point(12, 77);
             this.commandLabel.Name = "commandLabel";
             this.commandLabel.Size = new System.Drawing.Size(66, 13);
             this.commandLabel.TabIndex = 12;
@@ -126,7 +129,7 @@
             // commandText
             // 
             this.commandText.AutoSize = true;
-            this.commandText.Location = new System.Drawing.Point(84, 55);
+            this.commandText.Location = new System.Drawing.Point(84, 77);
             this.commandText.Name = "commandText";
             this.commandText.Size = new System.Drawing.Size(27, 13);
             this.commandText.TabIndex = 13;
@@ -141,11 +144,31 @@
             this.helpLabel.TabIndex = 14;
             this.helpLabel.Text = "Pressez la touche espace pour commencer la reconnaissance...";
             // 
-            // MainWindow
+            // confidenceText
+            // 
+            this.confidenceText.AutoSize = true;
+            this.confidenceText.Location = new System.Drawing.Point(103, 54);
+            this.confidenceText.Name = "confidenceText";
+            this.confidenceText.Size = new System.Drawing.Size(24, 13);
+            this.confidenceText.TabIndex = 16;
+            this.confidenceText.Text = "0 %";
+            // 
+            // confidenceTextLabel
+            // 
+            this.confidenceTextLabel.AutoSize = true;
+            this.confidenceTextLabel.Location = new System.Drawing.Point(12, 54);
+            this.confidenceTextLabel.Name = "confidenceTextLabel";
+            this.confidenceTextLabel.Size = new System.Drawing.Size(85, 13);
+            this.confidenceTextLabel.TabIndex = 15;
+            this.confidenceTextLabel.Text = "Texte reconnu : ";
+            // 
+            // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(408, 237);
+            this.ClientSize = new System.Drawing.Size(408, 269);
+            this.Controls.Add(this.confidenceText);
+            this.Controls.Add(this.confidenceTextLabel);
             this.Controls.Add(this.helpLabel);
             this.Controls.Add(this.commandText);
             this.Controls.Add(this.commandLabel);
@@ -157,7 +180,7 @@
             this.Controls.Add(this.devineLabel);
             this.Controls.Add(this.afficheLabel);
             this.Controls.Add(this.recoTextLabel);
-            this.Name = "MainWindow";
+            this.Name = "Form1";
             this.Text = "Démonstrateur de reconnaissance vocale";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -177,5 +200,7 @@
         public System.Windows.Forms.Label commandLabel;
         public System.Windows.Forms.Label commandText;
         public System.Windows.Forms.Label helpLabel;
+        public System.Windows.Forms.Label confidenceText;
+        public System.Windows.Forms.Label confidenceTextLabel;
     }
 }

@@ -7,7 +7,7 @@
     <authors>Thibault MONTAUFRAY</authors>
     <owners>Servodroid</owners>
     <licenseUrl>https://raw.githubusercontent.com/ThibaultMontaufray/Tools4Libraries/master/License</licenseUrl>
-    <projectUrl>https://github.com/ThibaultMontaufray/Manager-speaker</projectUrl>
+    <projectUrl>https://github.com/ThibaultMontaufray/Droid-Speaker</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/ThibaultMontaufray/Tools4Libraries/master/ManagersDevComponents/servodroidIconColor.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Speach recognition based on french syllabes.</description>

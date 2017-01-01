@@ -22,7 +22,7 @@ namespace Droid_Speaker
         {
 
             InitializeComponent();
-            ASR = new AutomaticSpeechRecognition(ref this.recoText, ref this.commandText, ref this.devine, ref this.affiche);
+            ASR = new AutomaticSpeechRecognition(ref this.recoText, ref this.commandText, ref this.devine, ref this.affiche, ref this.confidenceText);
             this.KeyPress += ActivateASR;
 
             PromptBuilder builder = new PromptBuilder();
@@ -31,22 +31,22 @@ namespace Droid_Speaker
             builder.AppendText("Bonjour Monsieur, il est " + DateTime.Now.Hour + " heures " + DateTime.Now.Minute);
             builder.EndSentence();
 
-            int minutesLeft = (_exitDate - DateTime.Now).Minutes;
-            if (minutesLeft > 0)
-            {
-                builder.StartSentence();
-                builder.AppendText("Il vous reste " + minutesLeft + " minutes avant de partir");
-                builder.EndSentence();
-            }
-            else
-            {
-                builder.StartSentence();
-                builder.AppendText("Vous devriez être partis depuis " + (minutesLeft*-1) + " minutes");
-                builder.EndSentence();
-            }
-            SpeechSynthesizer synthesizer = new SpeechSynthesizer();
-            synthesizer.Speak(builder);
-            synthesizer.Dispose();
+            //int minutesLeft = (_exitDate - DateTime.Now).Minutes;
+            //if (minutesLeft > 0)
+            //{
+            //    builder.StartSentence();
+            //    builder.AppendText("Il vous reste " + minutesLeft + " minutes avant de partir");
+            //    builder.EndSentence();
+            //}
+            //else
+            //{
+            //    builder.StartSentence();
+            //    builder.AppendText("Vous devriez être partis depuis " + (minutesLeft*-1) + " minutes");
+            //    builder.EndSentence();
+            //}
+            //SpeechSynthesizer synthesizer = new SpeechSynthesizer();
+            //synthesizer.Speak(builder);
+            //synthesizer.Dispose();
 
             _timer = new Timer();
             _timer.Interval = 1000;
