@@ -34,8 +34,6 @@
             this.recoText = new System.Windows.Forms.Label();
             this.affiche = new System.Windows.Forms.Label();
             this.devine = new System.Windows.Forms.Label();
-            this.exemplesLabel = new System.Windows.Forms.Label();
-            this.exemples = new System.Windows.Forms.TextBox();
             this.commandLabel = new System.Windows.Forms.Label();
             this.commandText = new System.Windows.Forms.Label();
             this.helpLabel = new System.Windows.Forms.Label();
@@ -66,9 +64,9 @@
             this.devineLabel.AutoSize = true;
             this.devineLabel.Location = new System.Drawing.Point(12, 123);
             this.devineLabel.Name = "devineLabel";
-            this.devineLabel.Size = new System.Drawing.Size(98, 13);
+            this.devineLabel.Size = new System.Drawing.Size(71, 13);
             this.devineLabel.TabIndex = 6;
-            this.devineLabel.Text = "Vous avez deviné :";
+            this.devineLabel.Text = "Mots deviné :";
             // 
             // recoText
             // 
@@ -91,31 +89,11 @@
             // devine
             // 
             this.devine.AutoSize = true;
-            this.devine.Location = new System.Drawing.Point(116, 123);
+            this.devine.Location = new System.Drawing.Point(89, 123);
             this.devine.Name = "devine";
             this.devine.Size = new System.Drawing.Size(27, 13);
             this.devine.TabIndex = 9;
             this.devine.Text = "vide";
-            // 
-            // exemplesLabel
-            // 
-            this.exemplesLabel.AutoSize = true;
-            this.exemplesLabel.Location = new System.Drawing.Point(12, 146);
-            this.exemplesLabel.Name = "exemplesLabel";
-            this.exemplesLabel.Size = new System.Drawing.Size(146, 13);
-            this.exemplesLabel.TabIndex = 10;
-            this.exemplesLabel.Text = "Exemple de textes reconnus :";
-            // 
-            // exemples
-            // 
-            this.exemples.Enabled = false;
-            this.exemples.Location = new System.Drawing.Point(15, 175);
-            this.exemples.Multiline = true;
-            this.exemples.Name = "exemples";
-            this.exemples.Size = new System.Drawing.Size(384, 81);
-            this.exemples.TabIndex = 11;
-            this.exemples.Text = "Fin du travail\r\nC\'est la lettre a\r\nC\'est le chiffre 5\r\nAffiche la lettre p\r\nAffic" +
-    "he le chiffre 0";
             // 
             // commandLabel
             // 
@@ -147,7 +125,7 @@
             // confidenceText
             // 
             this.confidenceText.AutoSize = true;
-            this.confidenceText.Location = new System.Drawing.Point(103, 54);
+            this.confidenceText.Location = new System.Drawing.Point(89, 54);
             this.confidenceText.Name = "confidenceText";
             this.confidenceText.Size = new System.Drawing.Size(24, 13);
             this.confidenceText.TabIndex = 16;
@@ -158,22 +136,20 @@
             this.confidenceTextLabel.AutoSize = true;
             this.confidenceTextLabel.Location = new System.Drawing.Point(12, 54);
             this.confidenceTextLabel.Name = "confidenceTextLabel";
-            this.confidenceTextLabel.Size = new System.Drawing.Size(85, 13);
+            this.confidenceTextLabel.Size = new System.Drawing.Size(64, 13);
             this.confidenceTextLabel.TabIndex = 15;
-            this.confidenceTextLabel.Text = "Texte reconnu : ";
+            this.confidenceTextLabel.Text = "Confiance : ";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(408, 269);
+            this.ClientSize = new System.Drawing.Size(408, 153);
             this.Controls.Add(this.confidenceText);
             this.Controls.Add(this.confidenceTextLabel);
             this.Controls.Add(this.helpLabel);
             this.Controls.Add(this.commandText);
             this.Controls.Add(this.commandLabel);
-            this.Controls.Add(this.exemples);
-            this.Controls.Add(this.exemplesLabel);
             this.Controls.Add(this.devine);
             this.Controls.Add(this.affiche);
             this.Controls.Add(this.recoText);
@@ -195,8 +171,6 @@
         public System.Windows.Forms.Label recoText;
         public System.Windows.Forms.Label affiche;
         public System.Windows.Forms.Label devine;
-        public System.Windows.Forms.Label exemplesLabel;
-        public System.Windows.Forms.TextBox exemples;
         public System.Windows.Forms.Label commandLabel;
         public System.Windows.Forms.Label commandText;
         public System.Windows.Forms.Label helpLabel;

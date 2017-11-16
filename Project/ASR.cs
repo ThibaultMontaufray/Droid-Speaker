@@ -12,10 +12,49 @@ namespace Droid_Speaker
     public class AutomaticSpeechRecognition
     {
         #region Attribute
-        private const string FILEPATH = @"..\..\Grammaire.grxml";
+        //private const string FILEPATH = @"..\..\Grammaire.grxml";
+        //private const string FILEPATH = @"..\..\GrammaireSyllabes.grxml";
+        private const string FILEPATH = @"..\..\GrammaireSyllabesTest.grxml";
+
         private const string GRAMARTEMPLATE = @"<?xml version='1.0' encoding='UTF-8'?>
-            <grammar version = '1.0' xml:lang='fr-FR' mode='voice' tag-format='semantics-ms/1.0' root='mouskie' xmlns='http://www.w3.org/2001/06/grammar'>
-                  <rule id = 'mouskie' scope='public'>
+            <grammar version = '1.0' xml:lang='fr-FR' mode='voice' tag-format='semantics-ms/1.0' root='word_1' xmlns='http://www.w3.org/2001/06/grammar'>
+                  <rule id = 'word_1' scope='public'>
+                        <one-of>
+                          {0}
+                        </one-of>
+                        <tag>$._value = $recognized.text;</tag>
+                  </rule>
+                  <rule id = 'word_2' scope='public'>
+                        <one-of>
+                          {0}
+                        </one-of>
+                        <one-of>
+                          {0}
+                        </one-of>
+                        <tag>$._value = $recognized.text;</tag>
+                  </rule>
+                  <rule id = 'word_3' scope='public'>
+                        <one-of>
+                          {0}
+                        </one-of>
+                        <one-of>
+                          {0}
+                        </one-of>
+                        <one-of>
+                          {0}
+                        </one-of>
+                        <tag>$._value = $recognized.text;</tag>
+                  </rule>
+                  <rule id = 'word_4' scope='public'>
+                        <one-of>
+                          {0}
+                        </one-of>
+                        <one-of>
+                          {0}
+                        </one-of>
+                        <one-of>
+                          {0}
+                        </one-of>
                         <one-of>
                           {0}
                         </one-of>
@@ -58,18 +97,17 @@ namespace Droid_Speaker
         #region Methods private
         private void GenerateGramar()
         {
-            // TOD add when the complete solution will be ready
-            //StringBuilder lines = new StringBuilder();
-            //List<string[]> syllabes = Droid_Database.MySqlAdapter.ExecuteReader("select valeur from t_mot;");
-            //foreach (string[] syllabe in syllabes)
-            //{
-            //    lines.AppendLine(string.Format("              <item>{0}</item>", syllabe[0]));
-            //}
-            //if (File.Exists(FILEPATH)) File.Delete(FILEPATH);
-            //using (StreamWriter sw = new StreamWriter(FILEPATH))
-            //{
-            //    sw.Write(string.Format(GRAMARTEMPLATE, lines.ToString()));
-            //}
+            StringBuilder lines = new StringBuilder();
+            List<string[]> syllabes = Droid_Database.MySqlAdapter.ExecuteReader("select son from t_syllabe group by son;");
+            foreach (string[] syllabe in syllabes)
+            {
+                lines.AppendLine(string.Format("              <item>{0}</item>", syllabe[0]));
+            }
+            if (File.Exists(FILEPATH)) File.Delete(FILEPATH);
+            using (StreamWriter sw = new StreamWriter(FILEPATH))
+            {
+                sw.Write(string.Format(GRAMARTEMPLATE, lines.ToString()));
+            }
         }
         private void StartEngine()
         {
@@ -94,11 +132,12 @@ namespace Droid_Speaker
         }
         private void ASREngine_SpeechHypothesized(object sender, SpeechHypothesizedEventArgs e)
         {
-            _recoText.Text = "Hypothèse : " + e.Result.Text;
+            _recoText.Text = e.Result.Text;
             _devine.Text = "";
             _affiche.Text = "";
             _commandText.Text = "";
             _confidence.Text = e.Result.Confidence.ToString() + " %";
+            if (e.Result.Words.Count > 1) Console.WriteLine("got it");
         }
         private void ASREngine_RecoSuccess(object sender, SpeechRecognitionRejectedEventArgs e)
         {
@@ -107,45 +146,46 @@ namespace Droid_Speaker
             _affiche.Text = "";
             _commandText.Text = "";
             _confidence.Text = e.Result.Confidence.ToString() + " %";
+            if (e.Result.Words.Count > 1) Console.WriteLine("got it");
         }
         private void ASREngine_RecoFailled(object sender, SpeechRecognizedEventArgs e)
         {
-            _recoText.Text = e.Result.Text;
-            _devine.Text = "";
-            _devine.Text = string.Empty;
+            //_recoText.Text = e.Result.Text;
+            //_devine.Text = "";
+            //_devine.Text = string.Empty;
 
-            foreach (var item in e.Result.Alternates)
-            {
-                _devine.Text += " " + item.Text;
-            }
-            //_affiche.Text = "";
-            ////Récupération de la commande de base utilisée(QUIT ou LEARN)
-            //string baseCommand = e.Result.Semantics["mouskie"].Value.ToString();
-            //_commandText.Text = baseCommand;
-            //if (baseCommand.Equals("QUIT"))
-            //    Environment.Exit(0);
-            //else if (baseCommand.Equals("LEARN"))
+            //foreach (var item in e.Result.Alternates)
             //{
-            //    string dataType = e.Result.Semantics["data_type"].Value.ToString();
-            //    _commandText.Text += " " + dataType;
-            //    string node = "";
-            //    //Choix du noeud en fonction de la commande trouvée
-            //    if (dataType.Equals("NUMBER"))
-            //        node = "numbers";
-            //    else if (dataType.Equals("LETTER"))
-            //        node = "letters";
-            //    try
-            //    {   //Parcours des alternatives pour toutes les afficher
-            //        for (int i = 0; i < e.Result.Alternates.ToArray().Length; i++)
-            //        {
-            //            string found = e.Result.Alternates.ToArray()[i].Semantics["data_type"][node].Value.ToString();
-            //            if (i != 0)
-            //                _affiche.Text += " ou ";
-            //            _affiche.Text += found;
-            //        }
-            //    }
-            //    catch { }
+            //    _devine.Text += " " + item.Text;
             //}
+            ////_affiche.Text = "";
+            //////Récupération de la commande de base utilisée(QUIT ou LEARN)
+            ////string baseCommand = e.Result.Semantics["mouskie"].Value.ToString();
+            ////_commandText.Text = baseCommand;
+            ////if (baseCommand.Equals("QUIT"))
+            ////    Environment.Exit(0);
+            ////else if (baseCommand.Equals("LEARN"))
+            ////{
+            ////    string dataType = e.Result.Semantics["data_type"].Value.ToString();
+            ////    _commandText.Text += " " + dataType;
+            ////    string node = "";
+            ////    //Choix du noeud en fonction de la commande trouvée
+            ////    if (dataType.Equals("NUMBER"))
+            ////        node = "numbers";
+            ////    else if (dataType.Equals("LETTER"))
+            ////        node = "letters";
+            ////    try
+            ////    {   //Parcours des alternatives pour toutes les afficher
+            ////        for (int i = 0; i < e.Result.Alternates.ToArray().Length; i++)
+            ////        {
+            ////            string found = e.Result.Alternates.ToArray()[i].Semantics["data_type"][node].Value.ToString();
+            ////            if (i != 0)
+            ////                _affiche.Text += " ou ";
+            ////            _affiche.Text += found;
+            ////        }
+            ////    }
+            ////    catch { }
+            ////}
         }
         #endregion
     }

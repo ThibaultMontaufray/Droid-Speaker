@@ -59,6 +59,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="GrammaireSyllabes.grxml" />
+    <None Include="GrammaireSyllabesTest.grxml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

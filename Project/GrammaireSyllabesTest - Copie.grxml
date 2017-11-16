@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<grammar version = '1.0' xml:lang='fr-FR' mode='voice' tag-format='semantics-ms/1.0' root='word_3' xmlns='http://www.w3.org/2001/06/grammar'>
+	<rule id = 'word_3' scope='public'>
+		<one-of>                          
+			<item>ba</item>
+			<item>be</item>
+			<item>bi</item>
+			<item>bo</item>
+			<item>bu</item>
+			<item>bon</item>
+			<item>bin</item>
+		</one-of>
+		<one-of>                          
+			<item>bar</item>
+			<item>jour</item>
+			<item>te</item>
+			<item>le</item>
+		</one-of>
+		<one-of>                          
+			<item>bar</item>
+			<item>jour</item>
+			<item>te</item>
+			<item>le</item>
+		</one-of>
+		<tag>$._value = $recognized.text;</tag>
+	</rule>
+	<rule id = 'word_2' scope='public'>
+		<one-of>                          
+			<item>ba</item>
+			<item>be</item>
+			<item>bi</item>
+			<item>bo</item>
+			<item>bu</item>
+			<item>bon</item>
+			<item>bin</item>
+		</one-of>
+		<one-of>                          
+			<item>bar</item>
+			<item>jour</item>
+			<item>te</item>
+			<item>le</item>
+		</one-of>
+		<tag>$._value = $recognized.text;</tag>
+	</rule>
+</grammar>

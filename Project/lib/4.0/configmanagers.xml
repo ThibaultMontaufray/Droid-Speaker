@@ -30,10 +30,10 @@
 		</sncf>
 	</logistic>
 	<database>
-		<host></host>
-		<login></login>
-		<password></password>
-		<name></name>
+		<host>localhost</host>
+		<login>TOBI</login>
+		<password>t0b!PWD!!!</password>
+		<name>mpartobid01</name>
 	</database>
 	<github>
 		<host></host>
