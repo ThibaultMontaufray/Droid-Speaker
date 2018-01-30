@@ -16,6 +16,7 @@ namespace Droid_Speaker
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new ToSpeakForm());
             Application.Run(new Form1());
         }
     }

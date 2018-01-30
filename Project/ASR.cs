@@ -6,6 +6,7 @@ using System.Speech.Recognition.SrgsGrammar;
 using System.Speech.Recognition;
 using System.Windows.Forms;
 using System.IO;
+using System.Globalization;
 
 namespace Droid_Speaker
 {
@@ -14,7 +15,8 @@ namespace Droid_Speaker
         #region Attribute
         //private const string FILEPATH = @"..\..\Grammaire.grxml";
         //private const string FILEPATH = @"..\..\GrammaireSyllabes.grxml";
-        private const string FILEPATH = @"..\..\GrammaireSyllabesTest.grxml";
+        //private const string FILEPATH = @"..\..\GrammaireSyllabesTest.grxml";
+        private const string FILEPATH = @"..\..\Tobi.grxml";
 
         private const string GRAMARTEMPLATE = @"<?xml version='1.0' encoding='UTF-8'?>
             <grammar version = '1.0' xml:lang='fr-FR' mode='voice' tag-format='semantics-ms/1.0' root='word_1' xmlns='http://www.w3.org/2001/06/grammar'>
@@ -81,7 +83,7 @@ namespace Droid_Speaker
         #region Constructor
         public AutomaticSpeechRecognition(ref Label recoText, ref Label commandText, ref Label devine, ref Label affiche, ref Label confidence)
         {
-            GenerateGramar();
+            //GenerateGramarFromDatabase();
             //Les 4 labels dont le texte devra être changé
             //en fonction de ce qui est reconnu
             this._recoText = recoText;
@@ -90,12 +92,12 @@ namespace Droid_Speaker
             this._affiche = affiche;
             this._confidence = confidence;
             //Démarrage du moteur de reconnaissance vocale
-            StartEngine();
+            if (File.Exists(FILEPATH)) { StartEngine(); }
         }
         #endregion
 
         #region Methods private
-        private void GenerateGramar()
+        private void GenerateGramarFromDatabase()
         {
             StringBuilder lines = new StringBuilder();
             List<string[]> syllabes = Droid_Database.MySqlAdapter.ExecuteReader("select son from t_syllabe group by son;");
@@ -116,7 +118,7 @@ namespace Droid_Speaker
             //Création d'une grammaire depuis le fichier de grammaire
             Grammar grammar = new Grammar(xmlGrammar);
             //Création de l'objet traitant la reconnaissance vocale
-            ASREngine = new SpeechRecognitionEngine();
+            ASREngine = new SpeechRecognitionEngine(new CultureInfo("fr-FR"));
             //Récupération du son du microphone
             ASREngine.SetInputToDefaultAudioDevice();
             //Chargement de la grammaire
@@ -137,7 +139,15 @@ namespace Droid_Speaker
             _affiche.Text = "";
             _commandText.Text = "";
             _confidence.Text = e.Result.Confidence.ToString() + " %";
-            if (e.Result.Words.Count > 1) Console.WriteLine("got it");
+            if (e.Result.Words.Count > 1)
+            {
+                string s = "got it ";
+                foreach (var item in e.Result.Words)
+                {
+                    s += " / " + item.Text + "["+item.Confidence+"]" + item.Pronunciation;
+                }
+                Console.WriteLine(s);
+            }
         }
         private void ASREngine_RecoSuccess(object sender, SpeechRecognitionRejectedEventArgs e)
         {
@@ -146,7 +156,15 @@ namespace Droid_Speaker
             _affiche.Text = "";
             _commandText.Text = "";
             _confidence.Text = e.Result.Confidence.ToString() + " %";
-            if (e.Result.Words.Count > 1) Console.WriteLine("got it");
+            if (e.Result.Words.Count > 1)
+            {
+                string s = "got it (" + e.Result.Confidence.ToString() + ")" ;
+                foreach (var item in e.Result.Words)
+                {
+                    s += " / " + item.Text;
+                }
+                Console.WriteLine(s);
+            }
         }
         private void ASREngine_RecoFailled(object sender, SpeechRecognizedEventArgs e)
         {

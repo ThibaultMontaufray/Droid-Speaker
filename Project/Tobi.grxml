@@ -1,0 +1,45 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<grammar version = '1.0' xml:lang='fr-FR' mode='voice' tag-format='semantics-ms/1.0' root='Tobi' xmlns='http://www.w3.org/2001/06/grammar'>
+    <rule id="Tobi" scope="public">
+		<one-of>	
+			<item>Tobi <ruleref uri="#VideoOpen" /></item>
+			<item>Tobi <ruleref uri="#VideoBreak" /></item>
+			<item>Tobi <ruleref uri="#VideoFullScreen" /></item>
+			<item>Tobi <ruleref uri="#VideoClose" /></item>
+		</one-of>
+	</rule>
+    <rule id="VideoOpen" scope="public">
+		<item> <tag> out="open"; </tag> 
+			<one-of>
+			  <item>lecture</item>
+			  <item>lit</item>
+			  <item>lance</item>
+			</one-of>
+      </item>
+	</rule>
+    <rule id="VideoBreak" scope="public">
+		<item> <tag> out="break"; </tag> 
+			<one-of>
+			  <item>pause</item>
+			  <item>arrête</item>
+			  <item>stop</item>
+			</one-of>
+      </item>
+	</rule>
+    <rule id="VideoFullScreen" scope="public">
+		<item> <tag> out="fullscreen"; </tag> 
+			<one-of>
+			  <item>plein écran</item>
+			  <item>agrandit</item>
+			</one-of>
+      </item>
+	</rule>
+    <rule id="VideoClose" scope="public">
+		<item> <tag> out="close"; </tag> 
+			<one-of>
+			  <item>eteint</item>
+			  <item>ferme</item>
+			</one-of>
+      </item>
+	</rule>
+</grammar>
